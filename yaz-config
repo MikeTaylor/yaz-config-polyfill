@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# Polyfill for building YAZ-based applications on Debian.
+
+if [ $# = 1 -a "x$1" = "x--version" ]; then
+   pkg-config --modversion yaz
+elif [ $# -ge 1 -a "x$1" = "x--cflags" ]; then
+   pkg-config --cflags yaz-server
+elif [ $# -ge 1 -a "x$1" = "x--libs" ]; then
+   pkg-config --libs yaz-server
+else
+   echo "$0 polyfill: unsupported invocation. Try:
+	$0 --version
+	$0 --cflags
+	$0 --libs
+" >&2
+fi
